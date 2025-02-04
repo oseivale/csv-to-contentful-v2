@@ -85,12 +85,15 @@ const ContentfulImporter = ({
 
         // const parsedData = JSON.parse(chunk);
 
-        // // Update progress for each completed entry
-        // setCompletedEntries((prev) => {
-        //   const newCompleted = parsedData.completedEntries;
-        //   setProgress(Math.round((newCompleted / csvData.length) * 100));
-        //   return newCompleted;
-        // });
+        const parsedData = typeof chunk === "string" ? JSON.parse(chunk) : chunk;
+        console.log('chunk', parsedData)
+
+        // Update progress for each completed entry
+        setCompletedEntries((prev) => {
+          const newCompleted = parsedData.completedEntries;
+          setProgress(Math.round((newCompleted / csvData.length) * 100));
+          return newCompleted;
+        });
       }
 
       // Final success message after all entries have been processed
