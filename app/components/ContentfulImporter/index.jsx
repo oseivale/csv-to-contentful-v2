@@ -83,14 +83,14 @@ const ContentfulImporter = ({
         // Ensure the chunk is properly formatted before parsing
         if (!chunk.trim()) continue;
 
-        const parsedData = JSON.parse(chunk);
+        // const parsedData = JSON.parse(chunk);
 
-        // Update progress for each completed entry
-        setCompletedEntries((prev) => {
-          const newCompleted = parsedData.completedEntries;
-          setProgress(Math.round((newCompleted / csvData.length) * 100));
-          return newCompleted;
-        });
+        // // Update progress for each completed entry
+        // setCompletedEntries((prev) => {
+        //   const newCompleted = parsedData.completedEntries;
+        //   setProgress(Math.round((newCompleted / csvData.length) * 100));
+        //   return newCompleted;
+        // });
       }
 
       // Final success message after all entries have been processed
