@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Papa from "papaparse";
 import styles from "./styles.module.css";
 import { Info } from "../../icons/info";
-// import { Confirm } from '../../icons/Confirm'
+import { Confirm } from '../../icons/Confirm'
 
 const CSVUploader = ({ onCsvParsed, setSelectedContentType }) => {
   const [csvHeaders, setCsvHeaders] = useState([]);
