@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
 import { toast } from "react-toastify";
@@ -37,69 +37,73 @@ const ContentfulImporter = ({
     window.location.reload(); // Reloads the page
   };
 
-const handleSubmit = async () => {
-  if (!selectedContentType || csvData.length === 0) {
-    toast.error("Please select a content type and upload a CSV file.");
-    return;
-  }
-
-  setIsSubmitting(true);
-  setProgress(0);
-  setTotalEntries(csvData.length);
-  setCompletedEntries(0);
-
-  try {
-    const response = await fetch("/api/contentful/import", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        contentType: selectedContentType,
-        csvData,
-        mappings: contentTypeMappings[selectedContentType],
-      }),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      toast.error(`Error: ${error.message}`);
+  const handleSubmit = async () => {
+    if (!selectedContentType || csvData.length === 0) {
+      toast.error("Please select a content type and upload a CSV file.");
       return;
     }
 
-    // Streaming progress updates from the backend
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder("utf-8");
+    setIsSubmitting(true);
+    setProgress(0);
+    setTotalEntries(csvData.length);
+    setCompletedEntries(0);
 
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) break;
-
-      // Decode the chunk from the stream
-      const chunk = decoder.decode(value, { stream: true });
-
-      // Ensure the chunk is properly formatted before parsing
-      if (!chunk.trim()) continue;
-
-      const parsedData = JSON.parse(chunk);
-
-      // Update progress for each completed entry
-      setCompletedEntries((prev) => {
-        const newCompleted = parsedData.completedEntries;
-        setProgress(Math.round((newCompleted / csvData.length) * 100));
-        return newCompleted;
+    try {
+      const response = await fetch("/api/contentful/import", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contentType: selectedContentType,
+          csvData,
+          mappings: contentTypeMappings[selectedContentType],
+        }),
       });
-    }
 
-    // Final success message after all entries have been processed
-    toast.success("🎉 All entries have been imported and published successfully!");
-  } catch (error) {
-    console.error("Error during import:", error);
-    toast.error("Failed to import entries.");
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+      console.log('response---', response)
+
+      if (!response.ok) {
+        const error = await response.json();
+        toast.error(`Error: ${error.message}`);
+        return;
+      }
+
+      // Streaming progress updates from the backend
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+
+        // Decode the chunk from the stream
+        const chunk = decoder.decode(value, { stream: true });
+
+        // Ensure the chunk is properly formatted before parsing
+        if (!chunk.trim()) continue;
+
+        const parsedData = JSON.parse(chunk);
+
+        // Update progress for each completed entry
+        setCompletedEntries((prev) => {
+          const newCompleted = parsedData.completedEntries;
+          setProgress(Math.round((newCompleted / csvData.length) * 100));
+          return newCompleted;
+        });
+      }
+
+      // Final success message after all entries have been processed
+      toast.success(
+        "🎉 All entries have been imported and published successfully!"
+      );
+    } catch (error) {
+      console.error("Error during import:", error);
+      toast.error("Failed to import entries.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <div
       className={`${styles.container} ${

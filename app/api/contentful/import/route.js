@@ -51,7 +51,9 @@ export async function POST(req) {
             }
 
             // Create and publish entry
-            const entry = await environment.createEntry(contentType, { fields });
+            const entry = await environment.createEntry(contentType, {
+              fields,
+            });
             await entry.publish();
 
             // Increment completed entries and send progress update
@@ -77,8 +79,9 @@ export async function POST(req) {
 
     return new Response(readable, {
       headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-cache",
+        "Content-Type": "application/json", // Ensure the response is identified as JSON
+        "Cache-Control": "no-cache", // Disable caching for dynamic content
+        "Transfer-Encoding": "chunked", // Allows streaming the response incrementally
       },
     });
   } catch (error) {
