@@ -11,7 +11,7 @@ export const Confirm = ({ color }) => (
       stroke={color}
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth="2"
+      strokeWidth="1"
     >
       <path
         strokeDasharray="64"
