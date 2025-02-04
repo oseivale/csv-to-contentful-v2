@@ -66,8 +66,8 @@ const CSVUploader = ({ onCsvParsed, setSelectedContentType }) => {
               the contentful content type will be populated below.
             </li>
             <li>
-              If everything looks correct, confirm your settings and click
-              "Import".
+             {`If everything looks correct, confirm your settings and click
+              "Import".`}
             </li>
           </ol>
         </div>

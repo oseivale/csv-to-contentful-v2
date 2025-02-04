@@ -81,7 +81,7 @@ const handleSubmit = async () => {
       // Ensure the chunk is properly formatted before parsing
       if (!chunk.trim()) continue;
 
-      const parsedData = JSON.parse(chunk.trim());
+      const parsedData = JSON.parse(chunk);
 
       // Update progress for each completed entry
       setCompletedEntries((prev) => {
@@ -126,14 +126,14 @@ const handleSubmit = async () => {
           <div>
             {selectedContentType === "informationHelpshift" && (
               <h3 className={styles.title}>
-                Looks like you're trying to create new entries for{" "}
+                {`Looks like you're trying to create new entries for`}{" "}
                 <strong>FAQs</strong>
               </h3>
             )}
 
             {selectedContentType === "componentCard" && (
               <h3 className={styles.title}>
-                Looks like you're trying to create new entries for{" "}
+                {`Looks like you're trying to create new entries for`}{" "}
                 <strong>Articles & Products</strong>
               </h3>
             )}
