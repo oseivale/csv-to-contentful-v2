@@ -81,8 +81,7 @@ const handleSubmit = async () => {
       // Ensure the chunk is properly formatted before parsing
       if (!chunk.trim()) continue;
 
-      const stringifiedText = JSON.stringify(chunk)
-      const parsedData = JSON.parse(stringifiedText);
+      const parsedData = JSON.parse(chunk.trim());
 
       // Update progress for each completed entry
       setCompletedEntries((prev) => {
