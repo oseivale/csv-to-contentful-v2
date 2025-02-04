@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
 import React, { useEffect, useState } from "react";
 import Papa from "papaparse";
 import styles from "./styles.module.css";
 import { Info } from "../../icons/info";
-import { Confirm } from '../../icons/confirm'
+import { Confirm } from "../../icons/confirm";
 
 const CSVUploader = ({ onCsvParsed, setSelectedContentType }) => {
   const [csvHeaders, setCsvHeaders] = useState([]);
@@ -59,15 +59,21 @@ const CSVUploader = ({ onCsvParsed, setSelectedContentType }) => {
             <li>
               Upload your .csv file - the file must have the correct headers.
             </li>
-            <sub><strong>CSV headers for FAQs:</strong> Original FAQ Title,	EN FAQ Title,	Original FAQ Content,	EN FAQ Content</sub><br/>
-            <sub><strong>CSV headers for a Product/Article:</strong> Original Section Name, EN Section Name</sub>
+            <sub>
+              <strong>CSV headers for FAQs:</strong> Original FAQ Title, EN FAQ
+              Title, Original FAQ Content, EN FAQ Content
+            </sub>
+            <br />
+            <sub>
+              <strong>CSV headers for a Product/Article:</strong> Original
+              Section Name, EN Section Name
+            </sub>
             <li>
               Once uploaded, the headers will be read and based on the headers
               the contentful content type will be populated below.
             </li>
             <li>
-             {`If everything looks correct, confirm your settings and click
-              "Import".`}
+              {`If everything looks correct, confirm your settings and click "Import".`}
             </li>
           </ol>
         </div>
