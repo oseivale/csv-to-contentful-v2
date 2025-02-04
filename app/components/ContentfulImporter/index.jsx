@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./styles.module.css";
-import { Loading } from "../../icons/loading";
+import { Completed, Loading } from "../../icons/loading";
+import { Floating } from '../../icons/floating'
 
 const ContentfulImporter = ({
   csvData,
@@ -85,17 +86,17 @@ const ContentfulImporter = ({
 
         // const parsedData = JSON.parse(chunk);
 
-        const parsedData = typeof chunk === "string" ? JSON.parse(chunk) : chunk;
-        console.log('chunk', parsedData)
+        // const parsedData = typeof chunk === "string" ? JSON.parse(chunk) : chunk;
+        // console.log('chunk', parsedData)
 
         // Update progress for each completed entry
-        setCompletedEntries((prev) => {
-          const newCompleted = parsedData.completedEntries;
-          setProgress(Math.round((newCompleted / csvData.length) * 100));
-          return newCompleted;
-        });
+        // setCompletedEntries((prev) => {
+        //   const newCompleted = parsedData.completedEntries;
+        //   setProgress(Math.round((newCompleted / csvData.length) * 100));
+        //   return newCompleted;
+        // });
       }
-
+      setProgress(100)
       // Final success message after all entries have been processed
       toast.success(
         "🎉 All entries have been imported and published successfully!"
@@ -202,15 +203,17 @@ const ContentfulImporter = ({
           //   ></div>
           // </div>
           <div className={styles.loading}>
-            <Loading progress={progress} />
+            {/* <Loading progress={progress} /> */}
+            <Floating />
           </div>
         )}
 
         {progress === 100 && (
+     
           <>
             <div className={styles.loading}>
-              <Loading progress={progress} />
-              {/* <Completed /> */}
+              {/* <Loading progress={progress} /> */}
+              <Completed />
               <button
                 className={`${styles.reload}  ${
                   progress === 100 ? styles.show : ""
